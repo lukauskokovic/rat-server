@@ -19,4 +19,4 @@ Right know you are not able to upload files to client's machine tho you can down
                         <li> <h2>screenoff</h2>  (Needs a client selected): Turns off screen share for selected client</li> 
                 </ul>
         </li>
-</ol>![Test](https://user-images.githubusercontent.com/49611825/133908470-4b446e7d-f9fb-40b0-a796-f179d1ebc25a.png)
+</ol>![Screenshot](https://user-images.githubusercontent.com/49611825/133908470-4b446e7d-f9fb-40b0-a796-f179d1ebc25a.png)
