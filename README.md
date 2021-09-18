@@ -20,5 +20,4 @@ Right know you are not able to upload files to client's machine tho you can down
                 </ul>
         </li>
 </ol>
-
-![Alt text](https://imgur.com/a/iATr4Y4 "Optional title")
+[![Test.png](https://i.postimg.cc/nzzh492Y/Test.png)](https://postimg.cc/CZ30Y1Wz)
