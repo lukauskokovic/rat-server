@@ -20,4 +20,3 @@ Right know you are not able to upload files to client's machine tho you can down
                 </ul>
         </li>
 </ol>
-![ScreenShot](https://i.postimg.cc/nzzh492Y/Test.png?raw=true)
