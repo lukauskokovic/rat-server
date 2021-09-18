@@ -1,0 +1,16 @@
+C:\Users\uskok\Desktop\Rat Server\bin\Debug\netcoreapp3.1\ratserver.exe
+C:\Users\uskok\Desktop\Rat Server\bin\Debug\netcoreapp3.1\ratserver.deps.json
+C:\Users\uskok\Desktop\Rat Server\bin\Debug\netcoreapp3.1\ratserver.runtimeconfig.json
+C:\Users\uskok\Desktop\Rat Server\bin\Debug\netcoreapp3.1\ratserver.runtimeconfig.dev.json
+C:\Users\uskok\Desktop\Rat Server\bin\Debug\netcoreapp3.1\ratserver.dll
+C:\Users\uskok\Desktop\Rat Server\bin\Debug\netcoreapp3.1\ratserver.pdb
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.csproj.AssemblyReference.cache
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.Form1.resources
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.csproj.GenerateResource.cache
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.AssemblyInfoInputs.cache
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.AssemblyInfo.cs
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.csproj.CoreCompileInputs.cache
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.dll
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.pdb
+C:\Users\uskok\Desktop\Rat Server\obj\Debug\netcoreapp3.1\ratserver.genruntimeconfig.cache
