@@ -31,6 +31,7 @@ namespace ratserver
                 }
                 ServerFunctions.ServerSocket.Dispose();
                 ServerFunctions.Running = false;
+                ShareScreen.form.Close();
                 Environment.Exit(0);
             };
 

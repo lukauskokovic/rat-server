@@ -24,6 +24,8 @@ public static class ShareScreen
             {
                 ServerFunctions.SetShareScreen(currentClient, false);                               
             }
+            form.Hide();
+            args.Cancel = true;
         };
         while (ServerFunctions.Running)
         {
@@ -34,7 +36,13 @@ public static class ShareScreen
             currentClient = ServerFunctions.Clients.Find(x => ServerFunctions.GetIP(x.Socket) == ip);
             currentClient.StreamingScreen = true;
 
-            ServerFunctions.Parent.Invoke(new Action(() => { form.Text = currentClient.PCName + " share screen"; form.Show(); }));
+            ServerFunctions.Parent.Invoke(new Action(() => {
+                if (form == null)
+                    form = new ShareScreenForm();
+
+                form.Text = currentClient.PCName + " share screen"; 
+                form.Show();
+            }));
             Console.WriteLine(currentClient + " connected share screen");
             while (true)
             {
@@ -61,8 +69,7 @@ public static class ShareScreen
                         if (currentClient != null)
                             currentClient.StreamingScreen = false;
 
-                        ServerFunctions.Parent.Invoke(new Action(() => { form.Hide();
-                    }));
+                        ServerFunctions.Parent.Invoke(new Action(() => form.Close()));
                         break;
                     }
                     try
@@ -83,7 +90,7 @@ public static class ShareScreen
                 catch(SocketException ex) 
                 {
                     ServerFunctions.Parent.Invoke(new Action(() => {
-                        form.Hide();
+                        form.Close();
                     }));
                     Console.WriteLine(ex);
                     break;

@@ -212,7 +212,7 @@ public static class ServerFunctions
             client.Socket.Send(buffer);
             return true;
 
-        }catch(SocketException)
+        }catch(Exception)
         {
             Console.WriteLine(client.PCName + " disconnected.");
             Parent.ClientDisconnected(client);
