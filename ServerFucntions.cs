@@ -14,6 +14,7 @@ public static class ServerFunctions
     public static Socket ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
     public static List<Client> Clients = new List<Client>();
     public static bool Running = true;
+    public static bool InWork = false;
     public static void WaitForConnection() 
     {
         while (Running)
@@ -38,6 +39,12 @@ public static class ServerFunctions
             }
         }
     }
+
+    public static string GetIP(Socket client) 
+    {
+        return ((IPEndPoint)client.RemoteEndPoint).Address.MapToIPv4().ToString();
+    }
+
     public static void BindSocket()
     {
         ServerSocket.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.17"), 1420));
@@ -45,6 +52,7 @@ public static class ServerFunctions
     }
     public static void RunCmdCommand(Client client, string command)
     {
+
         if (client == null) 
         {
             Console.WriteLine("No client selected");
@@ -55,14 +63,17 @@ public static class ServerFunctions
             Console.WriteLine("Enter a valid command");
             return;
         }
-
+        InWork = true;
         MemoryStream stream = new MemoryStream();
         BinaryWriter writter = new BinaryWriter(stream);
         writter.Write((byte)0);
         writter.Write(System.Text.Encoding.ASCII.GetBytes(command));
         byte[] buffer = stream.ToArray();
         if (!send(client, buffer))
+        {
+            InWork = false;
             return;
+        }
 
         while(client.Socket.Available == 0)
         {
@@ -72,11 +83,39 @@ public static class ServerFunctions
         int recevied = client.Socket.Receive(recBuffer);
         string response = System.Text.Encoding.ASCII.GetString(recBuffer, 0, recevied);
         Console.WriteLine(response);
+        InWork = false;
     }
+
+    public static void SendKeyStroke(Client client, byte device, int key, int mousex = 0, int mousey = 0)
+    {
+        if (client == null) return;
+        InWork = true;
+        byte[] Buffer = new byte[14];
+        Buffer[0] = 4;
+        Buffer[1] = device;
+        write_int(Buffer, 2, key);
+        if(device == 0)
+        {
+            write_int(Buffer, 6, mousex);
+            write_int(Buffer, 10, mousey);
+        }
+        send(client, Buffer);
+        InWork = false;
+        Console.WriteLine("Sent");
+    }
+
+    static void write_int(byte[] buffer, int startIndex, int value)
+    {
+        buffer[startIndex] = (byte)value;
+        buffer[startIndex+1] = (byte)(value >> 8);
+        buffer[startIndex+2] = (byte)(value >> 0x10);
+        buffer[startIndex+3] = (byte)(value >> 0x18);
+    }
+
     public static void DownloadFile(Client client, string fileName)
     {
         if (client == null) return;
-
+        InWork = true;
         MemoryStream stream = new MemoryStream();
         BinaryWriter writter = new BinaryWriter(stream);
         writter.Write((byte)1);
@@ -84,7 +123,10 @@ public static class ServerFunctions
         Console.WriteLine("|" + fileName + "|");
         byte[] buffer = stream.ToArray();
         if(!send(client, buffer))
+        {
+            InWork = false;
             return;
+        }
         
 
         while(client.Socket.Available == 0)
@@ -95,6 +137,7 @@ public static class ServerFunctions
         {
             client.Socket.Receive(new byte[1]);
             Console.WriteLine("File does not exist");
+            InWork = false;
             return;
         }
         byte[] recieveBuffer = new byte[2048];
@@ -121,6 +164,7 @@ public static class ServerFunctions
             perc *= 100;
             Console.Write("\r" + perc.ToString("N2") + "%     ");
         }
+        InWork = false;
         Console.Write("\r100%        \n");
         Console.WriteLine("File received " + string.Format("{0:n0}", (totalReceived - 8)) + " bytes");
         writeStream.Close();

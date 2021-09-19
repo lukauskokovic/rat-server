@@ -19,6 +19,7 @@ namespace ratserver
         public Form1()
         {
             InitializeComponent();
+            ShareScreen.form = new ShareScreenForm();
             ServerFunctions.Parent = this;
             ServerFunctions.BindSocket();
             FormClosing += (s, e) => 
