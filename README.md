@@ -17,8 +17,8 @@ Right know you are not able to upload files to client's machine tho you can down
                         <li> <h2>clearbuffers</h2> Clears all 1420 port buffers</li> 
                         <li> <h2>screenon</h2>  (Needs a client selected): Turns on screen share for selected client</li> 
                         <li> <h2>screenoff</h2>  (Needs a client selected): Turns off screen share for selected client</li> 
-                        <li  <h2>micon</h2> (Needs a client selected): Turns on microphone stream for the selected client</li> 
-                        <li  <h2>micoff</h2> (Needs a client selected): Turns off microphone stream for the selected client</li> 
+                        <li>  <h2>micon</h2> (Needs a client selected): Turns on microphone stream for the selected client</li> 
+                        <li>  <h2>micoff</h2> (Needs a client selected): Turns off microphone stream for the selected client</li> 
                 </ul>
         </li>
 </ol>![Screenshot](https://user-images.githubusercontent.com/49611825/133908470-4b446e7d-f9fb-40b0-a796-f179d1ebc25a.png)
